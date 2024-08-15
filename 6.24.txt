@@ -1,0 +1,65 @@
+1，aop实现，aop责任链
+2，BIO，NIO，AIO区别
+3，synchronized（互斥锁，自动底层unlock，作用与对象的时候是同一把锁）和lock（需要手动unlock，）的区别。
+4，各种锁，
+5，volatile关键字
+6，三层架构，dao（数据持久），service（业务逻辑层）
+7，二叉树的全部路径：
+思路：1，首先确定返回条件（遍历到叶子节点的时候）
+使用前序遍历
+所以递归前要加上判断语句，下面要递归的节点是否为空，如下
+
+if (cur->left) {
+    traversal(cur->left, path, result);
+}
+if (cur->right) {
+    traversal(cur->right, path, result);
+}
+此时还没完，递归完，要做回溯啊，因为path 不能一直加入节点，它还要删节点，然后才能加入新的节点。
+
+那么回溯要怎么回溯呢，一些同学会这么写，如下：
+
+if (cur->left) {
+    traversal(cur->left, path, result);
+}
+if (cur->right) {
+    traversal(cur->right, path, result);
+}
+path.pop_back();#############popback将数据从容器末尾弹出
+总体代码：
+// 版本一
+class Solution {
+private:
+    void traversal(TreeNode* cur, vector<int>& path, vector<string>& result) {
+        path.push_back(cur->val); // 中，中为什么写在这里，因为最后一个节点也要加入到path中 
+        // 这才到了叶子节点
+        if (cur->left == NULL && cur->right == NULL) {
+            string sPath;##直接进行输出（已经达到叶子节点）
+            for (int i = 0; i < path.size() - 1; i++) {
+                sPath += to_string(path[i]);
+                sPath += "->";##########输出
+            }
+            sPath += to_string(path[path.size() - 1]);
+            result.push_back(sPath);
+            return;
+        }
+        if (cur->left) { // 左 
+            traversal(cur->left, path, result);
+            path.pop_back(); // 回溯###########回溯的意义？弹出一个中间节点便于输出？ 
+            也可以在最后进行整体输出
+        }
+        if (cur->right) { // 右
+            traversal(cur->right, path, result);
+            path.pop_back(); // 回溯
+        }
+    }
+
+public:
+    vector<string> binaryTreePaths(TreeNode* root) {
+        vector<string> result;
+        vector<int> path;
+        if (root == NULL) return result;
+        traversal(root, path, result);
+        return result;
+    }
+};

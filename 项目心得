@@ -1,0 +1,1 @@
+idea编译时会将com和resource文件夹子搬运至target文件夹中
