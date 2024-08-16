@@ -18,7 +18,28 @@
 
 full gc
 ### 5.Java中四种引用类型
-？不知道
+在Java中，有四种引用类型，它们分别是强引用、软引用、弱引用和虚引用。每种引用类型在垃圾回收机制中有不同的行为和使用场景：
+
+ **强引用（Strong Reference）**：
+   - 默认的引用类型，例如 `Object obj = new Object();`。
+   - 只要强引用存在，垃圾回收器就不会回收被引用的对象，即使内存不足也不会回收¹。
+
+ **软引用（Soft Reference）**：
+   - 用于描述一些非必需但仍有用的对象，例如缓存。
+   - 当内存不足时，垃圾回收器会回收这些对象，以避免内存溢出错误²。
+   - 使用方式：`SoftReference<Object> softRef = new SoftReference<>(obj);`
+
+ **弱引用（Weak Reference）**：
+   - 用于描述非必需对象，生命周期比软引用更短。
+   - 当垃圾回收器扫描到弱引用对象时，无论内存是否充足，都会回收这些对象²。
+   - 使用方式：`WeakReference<Object> weakRef = new WeakReference<>(obj);`
+
+ **虚引用（Phantom Reference）**：
+   - 最弱的引用类型，无法通过虚引用访问对象。
+   - 主要用于跟踪对象被垃圾回收的时间，必须与引用队列（ReferenceQueue）联合使用²。
+   - 使用方式：`PhantomReference<Object> phantomRef = new PhantomReference<>(obj, refQueue);`
+
+
 
 ### 6.gc垃圾回收器有哪些
 不知道
@@ -96,7 +117,47 @@ Java 中常用的四种线程池分别是：
 
 ### 16.线程的生命周期是什么
 
+新建-就绪-运行-阻塞-等待-超时等待-终止
+
 ### 17.如何终止线程
+
+使用标志位来进行检测
+```java
+public class MyThread extends Thread {
+    private volatile boolean exit = false;
+
+    public void run() {
+        while (!exit) {
+            // 执行任务
+        }
+    }
+
+    public void stopThread() {
+        exit = true;
+    }
+}
+```
+interrupt() 方法：
+通过调用线程的 interrupt() 方法来中断线程。线程需要在运行过程中定期检查中断状态
+```java
+public class MyThread extends Thread {
+    public void run() {
+        while (!Thread.currentThread().isInterrupted()) {
+            // 执行任务
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt(); // 重新设置中断状态
+                break;
+            }
+        }
+    }
+}
+
+
+```
+stop方法（不推荐，强行终止线程）
+
 ### 18.sleep和wait有何区别
 所属类和调用方式：
 
