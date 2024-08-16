@@ -280,4 +280,57 @@ Session：通常在用户会话结束或浏览器关闭时失效
 提供面向切面编程功能，允许将横切关注点（如事务管理、日志记录）与业务逻辑分离。
 
 39.springmvc的工作流程
+
+
 40.springboot的原理（？？？我有点蒙蔽或许这题想问什么是springboot？）
+
+
+### 41.java中如何启动多线程
+1，继承thread类
+```java
+
+public class Thread1 extends Thread{
+ 
+	@Override
+	public void run() {
+		
+		for (int i = 0; i < 50; i++) {
+			System.out.println(Thread.currentThread().getName() + "执行" + i);
+		}
+	}
+```
+2。实现runnable接口
+```java
+
+public class Thread2 implements Runnable{
+ 
+	public void run() {
+		
+		for (int i = 0; i < 50; i++) {
+			System.out.println(Thread.currentThread().getName() + "执行" + i);
+		}
+	}
+ 
+}
+
+```
+
+2,匿名内部类
+```java
+public class Main {
+	
+	public static void main(String[] args) {
+		new Thread(new Runnable() {
+			
+			public void run() {
+				for (int i = 0; i < 50; i++) {
+					System.out.println(Thread.currentThread().getName() + "执行" + i);
+				}
+			}
+		}).start();
+		for (int i = 0; i < 50; i++) {
+			System.out.println(Thread.currentThread().getName() + "执行" + i);
+		}
+	}
+}
+```
