@@ -29,3 +29,7 @@ accessorder参数确定是否可以进行排序（你可以实现一个lru的算
 
 Hashtable的负载因子：默认为0.75（内存*负载因子为扩容极限）
 
+### Treemap
+
+有序性，禁止null键 
+
