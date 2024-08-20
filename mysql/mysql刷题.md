@@ -1,4 +1,4 @@
-### 遇到的难题（返回所有考试学生的科目）
+### 遇到的难题（返回所有考试学生的科目） 力扣
 ``` mysql
 SELECT 
     s.student_id, s.student_name, sub.subject_name, IFNULL(grouped.attended_exams, 0) AS attended_exams
