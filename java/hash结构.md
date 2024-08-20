@@ -19,9 +19,11 @@ HashMap的负载因子：默认为0.75；
 
 ### Linkedhashmap
 
-为hashmap的子类，存在一个前后列表来维护插入的顺序.jdk1.8before指针和after指针（LRU）手写一个LRU
+为hashmap的子类，存在一个前后列表来维护插入的顺序.jdk1.8before指针和after指针
 
+accessorder参数确定是否可以进行排序（你可以实现一个lru的算法，内存不会无限大，可以淘汰after指针的内容（最后的内容）实现最少使用）
 
+（LRU）手写一个LRU
 
 ### hashtable
 
