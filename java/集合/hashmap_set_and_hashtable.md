@@ -6,4 +6,16 @@
 
 #### 针对null值（hashmap允许多个null值）table放null=报错
 
-#### hashset=hashmap
+#### hashset=hashmap（hashset封装了hashmap的方法，体现了装饰器模式的思想）
+
+HashMap:
+
+用于存储键值对，适用于需要根据键快速查找、插入和删除元素的场景。
+
+常用于实现字典、缓存等数据结构。
+
+HashSet:（只涉及键）
+
+用于存储不重复的元素，适用于需要快速判断元素是否存在的场景。
+
+常用于集合运算，如交集、并集、差集等。
